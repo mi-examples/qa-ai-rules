@@ -161,7 +161,7 @@ function installFiles(enabledTools: Record<string, boolean>): void {
       continue;
     }
 
-    const srcDir = path.join(PKG_ROOT, 'src', tool.srcDir);
+    const srcDir = path.join(PKG_ROOT, 'rules', tool.srcDir);
     const destDir = path.join(PROJECT_ROOT, tool.dest);
 
     if (!fs.existsSync(srcDir)) {

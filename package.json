@@ -53,7 +53,7 @@
   },
   "author": "Serhii Shpak",
   "files": [
-    "src/",
+    "rules/",
     "dist/",
     "scripts/postinstall.cjs"
   ]

@@ -13,8 +13,10 @@ new tools in the future.
 
 ```
 scripts/
-  cli.js          ← CLI entry point (bin: qa-ai-rules)
+  postinstall.cjs ← runs on npm install in consuming repos
 src/
+  cli.ts          ← CLI source (compiled to dist/cli.js, not published)
+rules/
   cursor/
     test-case-rules.mdc
     test-suite-template.mdc
@@ -91,7 +93,7 @@ subdirectories natively, so it uses `.claude/rules/qa-ai-rules/`.
 
 ## Adding a new AI tool
 
-1. Add source files to `src/<toolname>/`
+1. Add source files to `rules/<toolname>/`
 2. Add an entry to the `TOOLS` object in `scripts/cli.js`:
    ```js
    newtool: {

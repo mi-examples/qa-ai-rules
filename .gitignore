@@ -16,3 +16,9 @@ Thumbs.db
 # Logs
 *.log
 npm-debug.log*
+
+*-qa-ai-rules-*.*.*.tgz
+*-qa-ai-rules-latest.tgz
+
+playwright-report/
+test-results/

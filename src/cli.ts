@@ -161,7 +161,7 @@ function installFiles(enabledTools: Record<string, boolean>): void {
       continue;
     }
 
-    const srcDir = path.join(PKG_ROOT, 'src', tool.srcDir);
+    const srcDir = path.join(PKG_ROOT, 'rules', tool.srcDir);
     const destDir = path.join(PROJECT_ROOT, tool.dest);
 
     if (!fs.existsSync(srcDir)) {
@@ -441,17 +441,16 @@ cli
 cli
   .command('', 'Interactive setup (default)')
   .action(async (options: Record<string, unknown>) => {
+    if (cli.args.length > 0) {
+      log.error(`Unknown command: ${cli.args.join(' ')}`);
+      cli.outputHelp();
+      process.exit(1);
+    }
+
     await cmdInit(options);
   });
 
 cli.help();
 cli.version(pkg.version);
-
-cli.on('command:*', () => {
-  log.error(`Unknown command: ${cli.args.join(' ')}`);
-  cli.outputHelp();
-  
-  process.exit(1);
-});
 
 cli.parse();

@@ -1,0 +1,60 @@
+{
+  "name": "@metricinsights/qa-ai-rules",
+  "version": "0.0.1",
+  "description": "Shared QA rules for AI coding tools (Cursor, Claude Code) across MI repositories",
+  "license": "MIT",
+  "keywords": [
+    "qa",
+    "testing",
+    "cursor",
+    "claude",
+    "ai",
+    "rules",
+    "metricinsights"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mi-examples/qa-ai-rules.git"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "bin": {
+    "qa-ai-rules": "./dist/cli.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "release": "semantic-release",
+    "postinstall": "node scripts/postinstall.cjs",
+    "prepublishOnly": "npm run lint && npm run build"
+  },
+  "dependencies": {
+    "@clack/prompts": "^0.7.0",
+    "cac": "^6.7.14",
+    "picocolors": "^1.1.1"
+  },
+  "devDependencies": {
+    "@eslint/compat": "^1.0.0",
+    "@eslint/eslintrc": "^3.0.0",
+    "@eslint/js": "^9.0.0",
+    "@stylistic/eslint-plugin": "^2.0.0",
+    "@types/node": "^18.0.0",
+    "@typescript-eslint/eslint-plugin": "^8.0.0",
+    "@typescript-eslint/parser": "^8.0.0",
+    "eslint": "^9.0.0",
+    "globals": "^15.0.0",
+    "prettier": "^3.8.1",
+    "semantic-release": "^24.0.0",
+    "@semantic-release/changelog": "^6.0.0",
+    "@semantic-release/git": "^10.0.0",
+    "typescript": "^5.0.0"
+  },
+  "author": "Serhii Shpak",
+  "files": [
+    "src/",
+    "dist/",
+    "scripts/postinstall.cjs"
+  ]
+}

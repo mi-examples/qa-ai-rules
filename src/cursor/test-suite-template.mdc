@@ -1,0 +1,44 @@
+---
+alwaysApply: false
+---
+# Page Test Cases – {{page}}
+
+## Overview
+Short explanation of what the page does and what areas are being tested.
+
+## Notes
+Important assumptions, dependencies, or special conditions.
+
+---
+
+## 1. Page Access & Navigation
+
+### TC-01 – Verify page loads successfully
+**Priority:** High
+
+**Steps**
+1. Login as QA_PP_Regular
+2. Navigate to {{page}}
+
+**Expected Result**
+Page loads successfully without errors and displays expected UI elements.
+
+---
+
+## 2. Core Functionality
+
+### TC-02 – Verify main action works correctly
+**Priority:** High
+
+**Steps**
+1. Login as QA_PP_Power
+2. Perform the main action on the page
+
+**Expected Result**
+Action completes successfully and the expected result is displayed.
+
+---
+
+## 3. Validation & Error Handling
+
+(Continue generating cases as needed)

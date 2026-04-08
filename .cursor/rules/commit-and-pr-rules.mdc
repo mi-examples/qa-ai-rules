@@ -1,0 +1,116 @@
+---
+alwaysApply: false
+---
+# Commit & PR Rules
+
+Follow these rules strictly when generating commit messages or PR descriptions.
+
+## Commit Message Convention
+
+All commits **must** follow [Conventional Commits v1.0.0](https://www.conventionalcommits.org/en/v1.0.0/).
+
+### Format
+
+```
+<type>[optional scope]: <description>
+
+[optional body]
+
+[optional footer(s)]
+```
+
+### Types
+
+| Type       | When to use                                              | Release effect  |
+| ---------- | -------------------------------------------------------- | --------------- |
+| `feat`     | New feature or capability                                | minor bump      |
+| `fix`      | Bug fix                                                  | patch bump      |
+| `perf`     | Performance improvement                                  | patch bump      |
+| `revert`   | Reverts a previous commit                                | patch bump      |
+| `docs`     | Documentation only                                       | no release      |
+| `style`    | Formatting, whitespace — no logic change                 | no release      |
+| `refactor` | Code restructure without feature or fix                  | no release      |
+| `test`     | Adding or updating tests                                 | no release      |
+| `chore`    | Tooling, config, dependency updates                      | no release      |
+| `ci`       | CI/CD pipeline changes                                   | no release      |
+| `build`    | Build system changes                                     | no release      |
+
+### Breaking Changes
+
+Append `!` after the type/scope, or add `BREAKING CHANGE: <description>` in the footer.
+Both trigger a **major** version bump.
+
+```
+feat!: remove deprecated install command
+
+BREAKING CHANGE: the `install` command has been removed; use `init` instead.
+```
+
+### Rules
+- Description is lowercase, imperative mood, no trailing period
+- Scope is optional; use it when the change is clearly scoped (e.g., `feat(cursor): ...`)
+- Body and footer are optional; use them for context or breaking change notes
+- One logical change per commit — do not batch unrelated changes
+
+### Examples
+
+```
+feat(claude): add commit-and-pr rules
+fix: resolve postinstall crash when config is missing
+chore: bump cac to 6.7.14
+docs: update README with init flags
+feat!: rename config key from "enabled" to "tools"
+```
+
+## PR Message Generation
+
+### Branch Rules
+- **Always fetch and diff against the remote origin branch**, never a local branch.
+- Before generating a PR description, run:
+  ```bash
+  git fetch origin
+  ```
+- Use `origin/<base>` as the base for the diff — never a bare branch name:
+  ```bash
+  git log origin/<base>..origin/<head> --oneline
+  git diff origin/<base>...origin/<head>
+  ```
+- If the head branch has not been pushed to origin, stop and ask the user to push first.
+
+### PR Description Structure
+
+```markdown
+## Summary
+- <bullet: what changed and why>
+
+## Type of change
+- [ ] Bug fix (patch)
+- [ ] New feature (minor)
+- [ ] Breaking change (major)
+- [ ] Docs / chore / refactor (no release)
+
+## Test plan
+- <what to verify manually or via CI>
+```
+
+### Target Branch Rules
+
+| Source branch  | PR target  | Release outcome                     |
+| -------------- | ---------- | ----------------------------------- |
+| `feature/*`    | `develop`  | Beta pre-release (GitHub only)      |
+| `fix/*`        | `develop`  | Beta pre-release (GitHub only)      |
+| `develop`      | `main`     | Stable release → published to npm   |
+| `hotfix/*`     | `main`     | Stable release → published to npm   |
+
+## Branch & Release Strategy
+
+This repo uses **semantic-release** with two long-lived branches:
+
+| Branch    | Channel | npm publish | Tag format      |
+| --------- | ------- | ----------- | --------------- |
+| `main`    | stable  | yes         | `v1.2.3`        |
+| `develop` | beta    | no          | `v1.2.3-beta.1` |
+
+- Merges into `develop` trigger a GitHub pre-release tagged as beta — **not published to npm**.
+- Merges into `main` trigger a stable GitHub release and publish to npm (GitHub Packages).
+- Version bumps are driven entirely by commit types — do not manually edit the version in `package.json`.

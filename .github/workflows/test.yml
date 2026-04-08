@@ -1,0 +1,30 @@
+name: Test
+
+on:
+  pull_request:
+    branches: [main, develop]
+
+jobs:
+  test:
+    name: E2E Install Tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build and pack
+        # tsc → dist/cli.js, then postbuild runs npm pack + rename-pack.js
+        # which produces metricinsights-qa-ai-rules-latest.tgz
+        run: npm run build
+
+      - name: Run E2E tests
+        run: npm test

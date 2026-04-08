@@ -24,8 +24,11 @@
   },
   "scripts": {
     "build": "tsc",
+    "postbuild": "npm pack && node scripts/rename-pack.js",
     "lint": "eslint .",
     "format": "prettier --write .",
+    "pretest": "npm run build",
+    "test": "playwright test",
     "release": "semantic-release",
     "postinstall": "node scripts/postinstall.cjs",
     "prepublishOnly": "npm run lint && npm run build"
@@ -36,6 +39,7 @@
     "picocolors": "^1.1.1"
   },
   "devDependencies": {
+    "@playwright/test": "^1.50.0",
     "@eslint/compat": "^1.0.0",
     "@eslint/eslintrc": "^3.0.0",
     "@eslint/js": "^9.0.0",
@@ -53,7 +57,7 @@
   },
   "author": "Serhii Shpak",
   "files": [
-    "src/",
+    "rules/",
     "dist/",
     "scripts/postinstall.cjs"
   ]

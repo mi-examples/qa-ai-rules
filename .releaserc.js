@@ -1,18 +1,38 @@
 'use strict';
 
-const isMain = process.env.GITHUB_REF === 'refs/heads/main';
-
 /** @type {import('semantic-release').GlobalConfig} */
 module.exports = {
   branches: [
     'main',
     { name: 'develop', prerelease: 'beta', channel: 'beta' },
   ],
+  "tagFormat": "v${version}",
   plugins: [
-    '@semantic-release/commit-analyzer',
-    '@semantic-release/release-notes-generator',
+    [
+      "@semantic-release/commit-analyzer",
+      {
+        "preset": "angular",
+        "presetConfig": {
+          "issuePrefixes": [],
+          "issueFormat": false,
+          "issueReferences": false
+        }
+      }
+    ],
+    [
+      "@semantic-release/release-notes-generator",
+      {
+        "preset": "angular",
+        "presetConfig": {
+          "issuePrefixes": [],
+          "commitTypes": ["feat", "fix", "docs", "style", "refactor", "perf", "test", "chore", "ci", "build"],
+          "issueFormat": false,
+          "issueReferences": false
+        }
+      }
+    ],
     '@semantic-release/changelog',
-    ['@semantic-release/npm', { npmPublish: isMain }],
+    ['@semantic-release/npm', { npmPublish: false }],
     [
       '@semantic-release/git',
       {
@@ -20,5 +40,14 @@ module.exports = {
         message: 'chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}',
       },
     ],
+    [
+      "@semantic-release/github",
+      {
+        "assets": ["package.json", "package-lock.json", "CHANGELOG.md"],
+        "releasedLabels": false,
+        "failCommentCondition": false,
+        "successCommentCondition": false
+      }
+    ]
   ],
 };

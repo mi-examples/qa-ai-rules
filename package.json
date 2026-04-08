@@ -1,6 +1,6 @@
 {
   "name": "@metricinsights/qa-ai-rules",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Shared QA rules for AI coding tools (Cursor, Claude Code) across MI repositories",
   "license": "MIT",
   "keywords": [

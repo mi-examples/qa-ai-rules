@@ -4,6 +4,8 @@
 **Environment:** <URL>
 **User role:** <role>
 
+**Preconditions (optional):** ...
+
 **Steps to reproduce:**
 1. ...
 

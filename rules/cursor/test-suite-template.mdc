@@ -42,3 +42,11 @@ Action completes successfully and the expected result is displayed.
 ## 3. Validation & Error Handling
 
 (Continue generating cases as needed)
+
+## 4. Summary
+Add a summary table at the end with two columns: **Cases** and **Actual Results** (empty). Prepend a row number to the title (`1. Title`, `2. Title`, …) — no separate index column, no `TC-` prefix in the table.
+
+| Cases | Actual Results |
+| -- | -- |
+| 1. Verify page loads successfully | |
+| 2. Verify main action works correctly | |

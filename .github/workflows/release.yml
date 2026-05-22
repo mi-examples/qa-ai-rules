@@ -7,6 +7,7 @@ on:
 
 permissions:
   contents: write
+  id-token: write # Required for npm Trusted Publisher (OIDC)
 
 jobs:
   release:
@@ -50,9 +51,10 @@ jobs:
         run: npm version ${{ steps.version.outputs.version }} --no-git-tag-version
 
       - name: Publish to npm
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: npm publish --access public
+        # setup-node may set NODE_AUTH_TOKEN; unset so OIDC trusted publishing is used
+        run: |
+          unset NODE_AUTH_TOKEN
+          npm publish --access public
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v1

@@ -1,3 +1,11 @@
+# [1.1.0-beta.1](https://github.com/mi-examples/qa-ai-rules/compare/v1.0.1...v1.1.0-beta.1) (2026-05-22)
+
+
+### Features
+
+* **rules:** add bug report template ([7bf6a92](https://github.com/mi-examples/qa-ai-rules/commit/7bf6a92d3ca7af5d8115a28f13212e5ca0c45b9c))
+* **rules:** add optional preconditions to bug report template ([10477d8](https://github.com/mi-examples/qa-ai-rules/commit/10477d8015a99445121027fcc942319d3ed705c2))
+
 # 1.0.0-beta.1 (2026-04-08)
 
 

@@ -76,6 +76,22 @@ npm update @metricinsights/qa-ai-rules
 
 Use Dependabot to auto-update minor and patch bumps.
 
+## Publishing
+
+Stable releases go to [registry.npmjs.org](https://www.npmjs.com/package/@metricinsights/qa-ai-rules) when a `v*` tag is pushed. The [Production Release](.github/workflows/release.yml) workflow publishes via **npm Trusted Publisher** (OIDC) — no `NPM_TOKEN` secret.
+
+**One-time setup on npmjs.com** (package **Settings** → **Trusted publishing** → GitHub Actions):
+
+| Field | Value |
+| ----- | ----- |
+| Organization / user | `mi-examples` |
+| Repository | `qa-ai-rules` |
+| Workflow filename | `release.yml` |
+
+After the first successful OIDC publish, you can disable token-based publishing under **Publishing access** and remove the `NPM_TOKEN` repository secret.
+
+Beta pre-releases are created from `develop` via [release-beta.yml](.github/workflows/release-beta.yml) (GitHub pre-release only, not published to npm).
+
 ## License
 
 MIT

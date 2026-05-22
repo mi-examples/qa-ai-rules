@@ -1,7 +1,7 @@
 # @metricinsights/qa-ai-rules
 
 Shared QA rules package for AI coding tools across all MI repositories.
-Published to GitHub Packages (`https://npm.pkg.github.com`).
+Published to the public npm registry (`https://registry.npmjs.org/`).
 
 ## Purpose
 
@@ -119,6 +119,22 @@ subdirectories natively, so it uses `.claude/rules/qa-ai-rules/`.
 Consuming repos should use Dependabot to auto-update minor/patch bumps.
 
 ## Publishing
+
+Stable releases are published to [registry.npmjs.org](https://registry.npmjs.org/) by the
+`.github/workflows/release.yml` workflow on `v*` tags, using **npm Trusted Publisher** (OIDC).
+No `NPM_TOKEN` secret is required.
+
+### One-time npm setup (package settings on npmjs.com)
+
+1. Open **@metricinsights/qa-ai-rules** → **Settings** → **Trusted publishing**
+2. Select **GitHub Actions** and configure:
+   - **Organization / user:** `mi-examples`
+   - **Repository:** `qa-ai-rules`
+   - **Workflow filename:** `release.yml` (exact match, including `.yml`)
+3. After a successful OIDC publish, optionally restrict token-based publishing under
+   **Publishing access** → *Require two-factor authentication and disallow tokens*
+
+### Manual publish (local)
 
 ```bash
 npm version minor

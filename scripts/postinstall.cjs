@@ -2,7 +2,7 @@
 'use strict';
 
 const { existsSync } = require('fs');
-const { execSync } = require('child_process');
+const { execFileSync } = require('child_process');
 const path = require('path');
 
 const cliPath = path.join(__dirname, '..', 'dist', 'cli.js');
@@ -12,5 +12,6 @@ if (existsSync(cliPath)) {
   // Without it, process.cwd() inside the CLI would be the package's own
   // directory inside node_modules rather than the consuming repo root.
   const cwd = process.env.INIT_CWD || process.cwd();
-  execSync(`node "${cliPath}" install`, { stdio: 'inherit', cwd });
+  // Same Node binary as this install, no shell: nothing in the path can be interpreted.
+  execFileSync(process.execPath, [cliPath, 'install'], { stdio: 'inherit', cwd });
 }

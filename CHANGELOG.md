@@ -1,3 +1,16 @@
+# [1.2.0-beta.1](https://github.com/mi-examples/qa-ai-rules/compare/v1.1.0...v1.2.0-beta.1) (2026-09-24)
+
+
+### Bug Fixes
+
+* **deps:** upgrade semantic-release to 25 to clear audit findings ([29b1a84](https://github.com/mi-examples/qa-ai-rules/commit/29b1a8446b04e304e3e3402c6686ca7f5076e0b5))
+* **postinstall:** run the CLI without a shell ([f541a50](https://github.com/mi-examples/qa-ai-rules/commit/f541a50955569305267ec268b7005bbc05e9739d))
+
+
+### Features
+
+* **deps:** upgrade @clack/prompts to 1 and cac to 7 ([f7c37e2](https://github.com/mi-examples/qa-ai-rules/commit/f7c37e21a5f161f325b3774d2c255a82292197b1))
+
 # [1.1.0-beta.1](https://github.com/mi-examples/qa-ai-rules/compare/v1.0.1...v1.1.0-beta.1) (2026-05-22)
 
 

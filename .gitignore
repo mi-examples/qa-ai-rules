@@ -22,3 +22,7 @@ npm-debug.log*
 
 playwright-report/
 test-results/
+
+# Secrets — never commit (SEC-8587)
+!.env.example
+*.pem

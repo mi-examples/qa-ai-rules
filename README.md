@@ -78,19 +78,21 @@ Use Dependabot to auto-update minor and patch bumps.
 
 ## Publishing
 
-Stable releases go to [registry.npmjs.org](https://www.npmjs.com/package/@metricinsights/qa-ai-rules) when a `v*` tag is pushed. The [Production Release](.github/workflows/release.yml) workflow publishes via **npm Trusted Publisher** (OIDC) — no `NPM_TOKEN` secret.
+Releases use the shared workflows from [mi-examples-workflows](https://github.com/mi-examples/mi-examples-workflows) ([release flow](https://github.com/mi-examples/mi-examples-workflows/blob/main/docs/workflows.md#release-workflows)). The caller is [`.github/workflows/release.yml`](.github/workflows/release.yml).
 
-**One-time setup on npmjs.com** (package **Settings** → **Trusted publishing** → GitHub Actions):
-
-| Field | Value |
-| ----- | ----- |
-| Organization / user | `mi-examples` |
-| Repository | `qa-ai-rules` |
-| Workflow filename | `release.yml` |
-
-After the first successful OIDC publish, you can disable token-based publishing under **Publishing access** and remove the `NPM_TOKEN` repository secret.
-
-Beta pre-releases are created from `develop` via [release-beta.yml](.github/workflows/release-beta.yml) (GitHub pre-release only, not published to npm).
+- **Betas.** Every push to `develop` with releasable commits publishes `X.Y.Z-beta.N` to npm under the `beta` dist-tag, with a GitHub prerelease. Install one with `npm install @metricinsights/qa-ai-rules@beta`.
+- **Production releases.**
+  1. Run **Actions → Release → Run workflow**. It opens a release pull request `release/vX.Y.Z → main` with the version bump and the new `CHANGELOG.md` entry.
+  2. Review and edit the entry in the pull request, then merge it.
+  3. Merging publishes to npm under `latest` and creates the tag and the GitHub release. It also opens the back-merge pull request into `develop`.
+- **Versions** come from [Conventional Commits](https://www.conventionalcommits.org/):
+  - `feat` → minor;
+  - `fix`, `perf` and `revert` → patch;
+  - `!` or a `BREAKING CHANGE:` footer → major;
+  - other types don't release.
+- **Publishing** uses npm Trusted Publishing (OIDC) from `release.yml` in the `npm-publish` environment. No npm token is needed or stored.
+  - Don't rename `release.yml`: the trusted publisher is registered for that filename.
+  - Setup and troubleshooting are in [npm-publishing.md](https://github.com/mi-examples/mi-examples-workflows/blob/main/docs/npm-publishing.md).
 
 ## License
 

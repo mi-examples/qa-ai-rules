@@ -106,7 +106,7 @@ subdirectories natively, so it uses `.claude/rules/qa-ai-rules/`.
    }
    ```
 3. Add `--newtool` flag option in the `init` command in `cli.js`
-4. Bump minor version and publish
+4. Commit it as `feat: ...`. The release flow bumps the minor version (see Publishing).
 
 ## Versioning
 
@@ -120,23 +120,18 @@ Consuming repos should use Dependabot to auto-update minor/patch bumps.
 
 ## Publishing
 
-Stable releases are published to [registry.npmjs.org](https://registry.npmjs.org/) by the
-`.github/workflows/release.yml` workflow on `v*` tags, using **npm Trusted Publisher** (OIDC).
-No `NPM_TOKEN` secret is required.
+Releases use the shared workflows from [mi-examples-workflows](https://github.com/mi-examples/mi-examples-workflows) ([release flow](https://github.com/mi-examples/mi-examples-workflows/blob/main/docs/workflows.md#release-workflows)). The caller is [`.github/workflows/release.yml`](.github/workflows/release.yml).
 
-### One-time npm setup (package settings on npmjs.com)
-
-1. Open **@metricinsights/qa-ai-rules** → **Settings** → **Trusted publishing**
-2. Select **GitHub Actions** and configure:
-   - **Organization / user:** `mi-examples`
-   - **Repository:** `qa-ai-rules`
-   - **Workflow filename:** `release.yml` (exact match, including `.yml`)
-3. After a successful OIDC publish, optionally restrict token-based publishing under
-   **Publishing access** → *Require two-factor authentication and disallow tokens*
-
-### Manual publish (local)
-
-```bash
-npm version minor
-npm publish
-```
+- **Betas.** Every push to `develop` with releasable commits publishes `X.Y.Z-beta.N` to npm under the `beta` dist-tag, with a GitHub prerelease. Install one with `npm install @metricinsights/qa-ai-rules@beta`.
+- **Production releases.**
+  1. Run **Actions → Release → Run workflow**. It opens a release pull request `release/vX.Y.Z → main` with the version bump and the new `CHANGELOG.md` entry.
+  2. Review and edit the entry in the pull request, then merge it.
+  3. Merging publishes to npm under `latest` and creates the tag and the GitHub release. It also opens the back-merge pull request into `develop`.
+- **Versions** come from [Conventional Commits](https://www.conventionalcommits.org/):
+  - `feat` → minor;
+  - `fix`, `perf` and `revert` → patch;
+  - `!` or a `BREAKING CHANGE:` footer → major;
+  - other types don't release.
+- **Publishing** uses npm Trusted Publishing (OIDC) from `release.yml` in the `npm-publish` environment. No npm token is needed or stored.
+  - Don't rename `release.yml`: the trusted publisher is registered for that filename.
+  - Setup and troubleshooting are in [npm-publishing.md](https://github.com/mi-examples/mi-examples-workflows/blob/main/docs/npm-publishing.md).

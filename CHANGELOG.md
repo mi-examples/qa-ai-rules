@@ -1,3 +1,15 @@
+# Changelog
+
+## [1.2.1](https://github.com/mi-examples/qa-ai-rules/compare/v1.2.0...v1.2.1) (2026-09-25)
+
+### Features
+
+- Beta publishing: pushes to `develop` with releasable commits now publish `X.Y.Z-beta.N` to npm under the `beta` dist-tag and create a GitHub prerelease, and can be installed with `npm install `@metricinsights/qa-ai-rules`@beta`.
+
+### Bug fixes
+
+- Fixed noisy npm publish warnings by normalizing `package.json` fields: the `bin` entry for `qa-ai-rules` is now `dist/cli.js` (removed leading `./`) and `repository.url` is `git+ with no change to the published manifest.
+
 # [1.2.0-beta.1](https://github.com/mi-examples/qa-ai-rules/compare/v1.1.0...v1.2.0-beta.1) (2026-09-24)
 
 

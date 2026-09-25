@@ -14,13 +14,13 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/mi-examples/qa-ai-rules.git"
+    "url": "git+https://github.com/mi-examples/qa-ai-rules.git"
   },
   "engines": {
     "node": ">=22.12"
   },
   "bin": {
-    "qa-ai-rules": "./dist/cli.js"
+    "qa-ai-rules": "dist/cli.js"
   },
   "scripts": {
     "build": "tsc",

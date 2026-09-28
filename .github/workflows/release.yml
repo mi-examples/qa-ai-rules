@@ -1,3 +1,7 @@
+# Managed by mi-examples-workflows. Do not edit by hand: change
+# .github/mi-examples-workflows.json and re-run `npx github:mi-examples/mi-examples-workflows`,
+# or merge the sync pull request.
+
 name: Release
 
 # Shared release flow: https://github.com/mi-examples/mi-examples-workflows/blob/main/docs/workflows.md#release-workflows
@@ -20,11 +24,12 @@ jobs:
     if: github.event_name == 'workflow_dispatch'
     permissions:
       contents: read
-    uses: mi-examples/mi-examples-workflows/.github/workflows/prepare-release.yml@cf845c043bfdebca3b0db0df24cb8e0a6aa71dc6 # v0.5.0
+    uses: mi-examples/mi-examples-workflows/.github/workflows/prepare-release.yml@9ce544b1c338f2946c68fe22017a118e2b5f3a8f # v0.7.0
     with:
       app-id: ${{ vars.WORKFLOWS_BOT_APP_ID }}
     secrets:
       app-key: ${{ secrets.WORKFLOWS_BOT_APP_KEY }}
+      openrouter-api-key: ${{ secrets.OPENROUTER_API_KEY }}
       openai-api-key: ${{ secrets.OPENAI_API_KEY }}
 
   beta:
@@ -33,7 +38,7 @@ jobs:
     permissions:
       contents: write # tags and GitHub releases
       id-token: write # npm Trusted Publishing (OIDC)
-    uses: mi-examples/mi-examples-workflows/.github/workflows/release-beta.yml@cf845c043bfdebca3b0db0df24cb8e0a6aa71dc6 # v0.5.0
+    uses: mi-examples/mi-examples-workflows/.github/workflows/release-beta.yml@9ce544b1c338f2946c68fe22017a118e2b5f3a8f # v0.7.0
 
   release:
     name: Release
@@ -41,7 +46,7 @@ jobs:
     permissions:
       contents: write # tags and GitHub releases
       id-token: write # npm Trusted Publishing (OIDC)
-    uses: mi-examples/mi-examples-workflows/.github/workflows/release.yml@cf845c043bfdebca3b0db0df24cb8e0a6aa71dc6 # v0.5.0
+    uses: mi-examples/mi-examples-workflows/.github/workflows/release.yml@9ce544b1c338f2946c68fe22017a118e2b5f3a8f # v0.7.0
 
   back-merge:
     name: Back-merge
@@ -49,7 +54,7 @@ jobs:
     if: needs.release.outputs.released == 'true'
     permissions:
       contents: read
-    uses: mi-examples/mi-examples-workflows/.github/workflows/back-merge.yml@cf845c043bfdebca3b0db0df24cb8e0a6aa71dc6 # v0.5.0
+    uses: mi-examples/mi-examples-workflows/.github/workflows/back-merge.yml@9ce544b1c338f2946c68fe22017a118e2b5f3a8f # v0.7.0
     with:
       app-id: ${{ vars.WORKFLOWS_BOT_APP_ID }}
       version: ${{ needs.release.outputs.version }}
